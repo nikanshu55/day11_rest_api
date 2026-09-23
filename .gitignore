@@ -1,0 +1,29 @@
+# Environment and secrets
+DB_HOST=localhost
+DB_PORT=
+DB_NAME=employee_management
+DB_USER=postgres
+DB_PASSWORD=
+
+# Python virtual environment
+venv/
+.venv/
+env/
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Test and tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
