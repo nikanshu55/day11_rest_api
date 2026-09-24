@@ -10,7 +10,7 @@ load_dotenv()
 
 app = FastAPI(
     title="Employee Management REST API",
-    description="Day 11 REST API Practical Task",
+    description="Day 11 REST API Practical",
     version="1.0.0"
 )
 
