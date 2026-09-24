@@ -2,7 +2,7 @@ Day 11 – FastAPI Employee REST API
 
 A simple Employee Management REST API built using FastAPI and PostgreSQL.
 
-This project demonstrates how a backend API communicates with a PostgreSQL database and performs CRUD operations on employee data.
+This project demonstrates how a backend API communicates with PostgreSQL database and performs CRUD operations on employee data.
 
 Technologies Used
 Python
@@ -128,7 +128,7 @@ POST    → Create employee
 GET     → Read employee data
 PUT     → Update employee
 DELETE  → Delete employee
-Project Purpose
+Project purpose 
 
 The purpose of this project is to understand and implement:
 
