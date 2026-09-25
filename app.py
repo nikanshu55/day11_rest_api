@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from datetime import date
 import psycopg2
@@ -10,7 +10,7 @@ load_dotenv()
 
 app = FastAPI(
     title="Employee Management REST API",
-    description="Day 11 REST API Practical",
+    description="Day 11 REST API Practical Task",
     version="1.0.0"
 )
 
@@ -34,7 +34,7 @@ def get_db_connection():
 class EmployeeCreate(BaseModel):
     employee_name: str
     email: EmailStr
-    phone: Optional[str] = None
+    phone: Optional[str] = Field(default=None, pattern=r"^\d{10}$")
     joining_date: date
     department_id: int
     manager_id: Optional[int] = None
@@ -44,13 +44,16 @@ class EmployeeCreate(BaseModel):
 # GET /employees
 # -----------------------------
 @app.get("/employees")
-def get_employees():
+def get_employees(
+    department: Optional[str] = None,
+    search: Optional[str] = None
+):
 
     conn = get_db_connection()
     cursor = conn.cursor()
 
     try:
-        cursor.execute("""
+        query = """
             SELECT
                 e.employee_id,
                 e.employee_name,
@@ -63,8 +66,23 @@ def get_employees():
             FROM employee e
             JOIN department d
                 ON e.department_id = d.department_id
-            ORDER BY e.employee_id;
-        """)
+        """
+        filters = []
+        values = []
+
+        if department:
+            filters.append("d.department_name ILIKE %s")
+            values.append(department)
+
+        if search:
+            filters.append("e.employee_name ILIKE %s")
+            values.append(f"%{search}%")
+
+        if filters:
+            query += " WHERE " + " AND ".join(filters)
+
+        query += " ORDER BY e.employee_id;"
+        cursor.execute(query, values)
 
         rows = cursor.fetchall()
 

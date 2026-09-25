@@ -27,7 +27,7 @@ PostgreSQL database integration
 Swagger API documentation
 API Endpoints
 Method	Endpoint	Description
-GET	/employees	Get all employees
+GET	/employees	Get all employees; optionally filter with `department` or `search`
 GET	/employees/{id}	Get employee by ID
 POST	/employees	Create a new employee
 PUT	/employees/{id}	Update an employee
@@ -95,7 +95,7 @@ cd day11_rest_api
 
 Create a virtual environment:
 
-python3 -m venv venv
+python3.13 -m venv venv
 
 Activate the virtual environment:
 
@@ -122,6 +122,15 @@ Open:
 http://127.0.0.1:8000/docs
 
 From Swagger UI, you can view and test all available API endpoints.
+
+Filter employees
+
+GET /employees?department=IT
+GET /employees?search=rahul
+
+The `department` filter matches the department name, and `search` performs a
+case-insensitive partial match against employee names. Both filters can be
+used together.
 
 CRUD Operations
 POST    → Create employee
